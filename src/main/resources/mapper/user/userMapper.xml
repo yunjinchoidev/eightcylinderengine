@@ -4,9 +4,42 @@
 
 <mapper namespace="com.server.eightcylinderengine.user.mapper.UserMapper">
 
-<select id="listUsers"
-resultType="com.server.eightcylinderengine.user.model.UserDto">
-SELECT * FROM user
-</select>
+    <select id="listUsers"
+            resultType="com.server.eightcylinderengine.user.model.UserDto">
+        SELECT
+            USERS.EMAIL
+            ,USERS.PASSWORD
+        FROM USERS
+    </select>
 
+    <insert id="insertUser"
+            parameterType="com.server.eightcylinderengine.user.model.UserRequestDto"
+    >
+        INSERT INTO
+            USERS
+            (EMAIL,
+             PASSWORD)
+            VALUES
+                (
+                 #{email}
+                 ,#{password}
+                )
+    </insert>
+
+    <update id="updateUser"
+            parameterType="com.server.eightcylinderengine.user.model.UserRequestDto"
+    >
+        UPDATE
+            USERS
+        SET USERS.PASSWORD = #{password}
+        WHERE EMAIL = #{email}
+    </update>
+
+    <delete id="deleteUser"
+            parameterType="com.server.eightcylinderengine.user.model.UserRequestDto"
+    >
+        DELETE
+            FROM USERS
+        WHERE USERS.EMAIL = #{email}
+    </delete>
 </mapper>
